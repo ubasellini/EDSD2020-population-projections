@@ -12,7 +12,8 @@ End date: 04/06/2020
 - Introduction to population projections
 - First model of population projections
 
-
+### Day 2
+- The cohort component method: projection of a two-sex closed population
 
 ## Acknowledgments
 I thank my EDSD professor Guy J. Abel for teaching a wonderful course in 2016. The materials of this course are inspired by his classes and Chapter 6 of Preston et al. (2001). 
