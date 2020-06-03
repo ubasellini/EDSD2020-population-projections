@@ -15,8 +15,13 @@ End date: 04/06/2020
 ### Day 2
 - The cohort component method: projection of a two-sex closed population
 
+### Day 3
+- Matrix projections: two-sex closed population
+- Dynamic visualizations: animategraphics, gganimate & .gifs
+- Introduction to shiny apps
+
 ## Acknowledgments
-I thank my EDSD professor Guy J. Abel for teaching a wonderful course in 2016. The materials of this course are inspired by his classes and Chapter 6 of Preston et al. (2001). 
+I thank my EDSD professor Guy J. Abel for teaching a wonderful course in 2016. The materials of this course are inspired by his classes and Chapter 6 of Preston et al. (2001). Special thanks also to Marília R. Nepomuceno for providing me with useful suggestions.
 
 ## References
 
