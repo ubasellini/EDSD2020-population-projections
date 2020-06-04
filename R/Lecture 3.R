@@ -43,7 +43,7 @@ all.equal(NFx5.manual,NFx5.matrix)
 
 ## first function for population projection
 ## here for a closed population, only females
-pop.proj <- function(x,AgeGroup,Nx,sx,bx,n){
+pop.proj <- function(x,AgeGroup,Nx,sFx,bFx,n){
   ## dimension
   m <- length(x)
   ## create Leslie matrix
@@ -64,7 +64,7 @@ pop.proj <- function(x,AgeGroup,Nx,sx,bx,n){
 ## let's project 20 periods ahead
 n <- 20
 my.proj <- pop.proj(x=dta.swe$Age,AgeGroup=dta.swe$AgeGroup,
-                    Nx=NFx,sx=sFx,bx=bFx,n=n)
+                    Nx=NFx,sFx=sFx,bFx=bFx,n=n)
 all.equal(NFx,my.proj$`1`)
 all.equal(NFx5.matrix,my.proj$`2`)
 

@@ -1,12 +1,12 @@
 # EDSD 2020: Course on population projections
 
-This repository contains the materials for the European Doctoral School of Demography 2020 course on "Population projections". 
+This repository contains the materials for the [European Doctoral School of Demography](http://eds-demography.org) 2020 course on "Population projections". 
 
 Start date: 01/06/2020
 
 End date: 04/06/2020
 
-## Syllabus (updated daily)
+## Syllabus
 
 ### Day 1
 - Introduction to population projections
@@ -19,6 +19,12 @@ End date: 04/06/2020
 - Matrix projections: two-sex closed population
 - Dynamic visualizations: animategraphics, gganimate & .gifs
 - Introduction to shiny apps
+
+### Day 4
+- Extensions of matrix projections: 
+    - open population 
+    - time-varying assumptions
+    - stable population
 
 ## Acknowledgments
 I thank my EDSD professor Guy J. Abel for teaching a wonderful course in 2016. The materials of this course are inspired by his classes and Chapter 6 of Preston et al. (2001). Special thanks also to Marília R. Nepomuceno for providing me with useful suggestions.
