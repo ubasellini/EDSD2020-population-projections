@@ -212,6 +212,33 @@ shinyApp(ui = ui, server = server)
 ## EXERCISE on stable population and 
 ## decomposition of the Leslie matrix
 
+## longer time horizon for projections
+n <- 50
+my.proj <- pop.proj.v2(x=dta.swe$Age,AgeGroup=dta.swe$AgeGroup,NFx=NFx,sFx=sFx,bFx=bFx,
+                       NMx=NMx,sMx=sMx,bMx=bMx,n=n)
+## long data
+dta.swe.l <- my.proj %>%
+  pivot_longer(-c(x,AgeGroup,sex),names_to = "period",values_to = "population") %>%
+  mutate(period=as.numeric(period),
+         Year=1993 + (period-1)*5,
+         YearF=as.factor(Year))
+
+## compute total population by sex in each year
+tot.pop <- dta.swe.l %>%
+  group_by(YearF) %>%
+  summarise(TotPop=sum(population))
+
+## compute distribution of the population in each age group
+dta.swe.l <- dta.swe.l %>%
+  left_join(tot.pop) %>%
+  mutate(Pch=population/TotPop)
+
+## extract distribution in last year
+x <- dta.swe$Age
+xG <- dta.swe$AgeGroup
+yF <- dta.swe.l$Pch[dta.swe.l$Year == max(dta.swe.l$Year) & dta.swe.l$sex == "Females"]
+yM <- dta.swe.l$Pch[dta.swe.l$Year == max(dta.swe.l$Year) & dta.swe.l$sex == "Males"]
+
 ## eigendecomposition of the Leslie matrix
 ev.decomp <- eigen(L)
 
@@ -225,37 +252,10 @@ ev.vec <- ev.decomp$vectors[,1]
 ev.vecF <- ev.vec[1:m]
 ev.vecM <- ev.vec[1:m + m]
 
-## rescale them to sum to 1
+## rescale them to sum to the long-term sex-specific total distribution
 ## this will give you the long-term distribution of the stable population
-ev.vecF <- ev.vecF/sum(ev.vecF)
-ev.vecM <- ev.vecM/sum(ev.vecM)
-
-## longer time horizon for projections
-n <- 50
-my.proj <- pop.proj.v2(x=dta.swe$Age,AgeGroup=dta.swe$AgeGroup,NFx=NFx,sFx=sFx,bFx=bFx,
-                       NMx=NMx,sMx=sMx,bMx=bMx,n=n)
-## long data
-dta.swe.l <- my.proj %>%
-  pivot_longer(-c(x,AgeGroup,sex),names_to = "period",values_to = "population") %>%
-  mutate(period=as.numeric(period),
-         Year=1993 + (period-1)*5,
-         YearF=as.factor(Year))
-
-## compute total population by sex in each year
-tot.pop.by.sex <- dta.swe.l %>%
-  group_by(sex,YearF) %>%
-  summarise(TotPop=sum(population))
-
-## compute distribution of the population in each age group
-dta.swe.l <- dta.swe.l %>%
-  left_join(tot.pop.by.sex) %>%
-  mutate(Pch=population/TotPop)
-
-## extract distribution in last year
-x <- dta.swe$Age
-xG <- dta.swe$AgeGroup
-yF <- dta.swe.l$Pch[dta.swe.l$Year == max(dta.swe.l$Year) & dta.swe.l$sex == "Females"]
-yM <- dta.swe.l$Pch[dta.swe.l$Year == max(dta.swe.l$Year) & dta.swe.l$sex == "Males"]
+ev.vecF <- (ev.vecF/sum(ev.vecF)) * sum(yF)
+ev.vecM <- (ev.vecM/sum(ev.vecM)) * sum(yM)
 
 ## compare Male distribution of projection vs Leslie
 plot(x,yM,t="n",axes = F,xlab = "age group",ylab = "",
@@ -268,11 +268,8 @@ points(x,ev.vecM,col=4,pch=4,lwd=2)
 legend("bottomleft",c("From projections","From Leslie"),pch=c(1,4),col=c(1,4),
        lwd=2,cex=1.25,inset = 0.01,lty=NA,bg="white")
 
-## compute overall total population
-tot.pop <- tot.pop.by.sex %>%
-  ungroup() %>%
-  group_by(YearF) %>%
-  summarise(TotPop = sum(TotPop)) %>%
+## extract overall total population
+tot.pop <- tot.pop %>%
   pull(TotPop)
 
 ## compute growth rate
@@ -286,3 +283,6 @@ plot(1:n,CGR,col=4,t="l",lwd=2)
 abline(h=cgr_leslie,col=2,lty=2,lwd=2)
 legend("topright",c("From projections","From Leslie"),pch=NA,col=c(4,2),
        lwd=2,cex=1.25,lty=c(1,2),bg="white")
+
+
+## END

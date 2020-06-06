@@ -27,7 +27,7 @@ End date: 04/06/2020
     - stable population
 
 ## Acknowledgments
-I thank my EDSD professor Guy J. Abel for teaching a wonderful course in 2016. The materials of this course are inspired by his classes and Chapter 6 of Preston et al. (2001). Special thanks also to Marília R. Nepomuceno for providing me with useful suggestions.
+I thank my EDSD professor Guy J. Abel for teaching a wonderful course in 2016. The materials of this course are inspired by his classes and Chapter 6 of Preston et al. (2001). Special thanks also to Marília R. Nepomuceno and Heather Booth for providing me with useful suggestions.
 
 ## References
 
